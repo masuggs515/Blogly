@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Edit {{user.get_full_name()}} {% endblock %}
+{% block content %}
+<h1>Edit {{user.get_full_name()}} details</h1>
+<form action="/users/{{user.id}}/edit" method="POST">
+    <input class="form-control my-2" type="text" name="first_name" placeholder="First Name" value="{{user.first_name}}">
+    <input class="form-control my-2" type="text" name="last_name" placeholder="Last Name" value="{{user.last_name}}">
+    <input class="form-control my-2" type="text" name="img_url" placeholder="Image URL"value="{{user.image_url}}">
+    <button class="btn btn-success">Save Edit</button>
+    <a href="/users/{{user.id}}" class="btn btn-outline-warning">Cancel Edit</a>
+</form>
+{% endblock %}
