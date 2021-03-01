@@ -1,12 +1,29 @@
 {% extends 'base.html' %}
-{% block title %}{{user.first_name}} {{user.last_name}}{% endblock %}
+{% block title %}{{user.get_full_name()}}{% endblock %}
 {% block content %}
-<h1>{{user.get_full_name()}} Details</h1>
-<img src="{{user.image_url}}" alt="">
-<a href="/users/{{user.id}}/edit" class="btn btn-outline-warning mx-2">Edit User</a>
-<form action="/users/{{user.id}}/delete" method="POST" id="delete_form">
-    <button class="btn btn-danger">Delete User</button>
-</form>
-<h5>Name: {{user.get_full_name()}}</h5>
+<div class="container row my-4">
+    <img src="{{user.image_url}}" alt="" class="col-3 profile-img m-3">
+    <div class="col-8 my-4">
+        <h4 class="d-inline text-center my-4">{{user.get_full_name()}}</h4>
+
+        <a href="/users/{{user.id}}/edit" class="btn btn-outline-warning btn-sm mx-2">Edit User</a>
+        <form action="/users/{{user.id}}/delete" method="POST" id="delete_form">
+            <button class="btn btn-danger btn-sm">Delete User</button>
+        </form>
+        <h4 class="mx-4">Posts</h4>
+        {% if posts %}
+        <ul class="mx-4">
+            {% for post in posts %}
+            <li>
+                <a href="/posts/{{post.id}}">{{post.title}}</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <h5>User has no posts</h5>
+        {% endif %}
+        <a href="/users/{{user.id}}/posts/new" class="btn-primary btn-sm">Add Post</a>
+    </div>
+</div>
 <a href="/users" class="btn btn-primary">Back to user list</a>
 {% endblock %}

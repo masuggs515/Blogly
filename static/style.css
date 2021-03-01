@@ -6,12 +6,11 @@ a{
     color: white;
 }
 
-img{
-    width: 10vw;
-    margin: 0;
-
-}
-
 #delete_form{
     display: inline;
+}
+
+.profile-img{
+    width: auto;
+    height: 15vh;
 }
