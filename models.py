@@ -12,6 +12,8 @@ def connect_db(app):
 
 # log in/sign up schema
 
+DEFAULT_IMAGE = 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'
+
 class User(db.Model):
     """Template for user table"""
 
@@ -24,13 +26,14 @@ class User(db.Model):
     id = db.Column(db.Integer,
                     primary_key=True,
                     autoincrement=True)
-    first_name = db.Column(db.String(14),
+    first_name = db.Column(db.String(25),
                     nullable=False)
-    last_name = db.Column(db.String(14),
+    last_name = db.Column(db.String(25),
                     nullable=False)
-    image_url = db.Column(db.String(999),
-                    default='https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg')
+    image_url = db.Column(db.Text,
+                    default=DEFAULT_IMAGE)
 
+    post = db.relationship("Post", cascade="all, delete-orphan", backref="usr")
     
     def get_full_name(self):
         """Combine first and last names to populate full name."""
@@ -41,16 +44,19 @@ class Post(db.Model):
 
     __tablename__ = "posts"
 
+    def __repr__(self):
+        p = self
+        return f'<Post title={p.title} content={p.content} created_at={p.created_at} user_id={p.user_id}>'
+
     id = db.Column(db.Integer,
                     primary_key=True,
                     autoincrement=True)
     title = db.Column(db.String(20),
                     nullable=False)
     content = db.Column(db.Text,
-                        nullable=False)
-    created_at = db.Column(db.DateTime)
+                    nullable=False)
+    created_at = db.Column(db.Date,
+                    default=datetime.now())
     user_id = db.Column(db.Integer,
-                        db.ForeignKey('users.id'))
-
-    usr = db.relationship('User', backref='posts')
+                    db.ForeignKey('users.id'))
 

@@ -1,8 +1,11 @@
 from unittest import TestCase
 from app import app
 from flask import session
-from models import User, db
+from models import User, db, Post
+from datetime import datetime
 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly_test'
+db.create_all()
 
 class FlaskTests(TestCase):
 
@@ -35,3 +38,5 @@ class FlaskTests(TestCase):
 
             self.assertEqual(res.status_code, 200)
             self.assertIn('<h1>Add a User</h1>' , html)
+
+    
