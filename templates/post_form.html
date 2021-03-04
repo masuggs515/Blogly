@@ -7,12 +7,22 @@
     <div class="mb-3">
         <label for="title" class="mb-1">Post Title</label>
         <input type="text" name="title" id="title" class="form-control">
+        
     </div>
     <div class="mb-3">
         <label for="content" class="mb-1">Post Content</label>
         <textarea type="text" class="form-control" name="content" rows="2" cols="25" id="content"> </textarea>
     </div>
-    <button class="btn btn-sm btn-primary">Add Post</button>
+    <h5>Add Tags:</h5>
+    {% for tag in tags %}
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="{{tag.id}}" id="{{tag.name}}" name="tags">
+        <label class="form-check-label" for="{{tag.name}}">
+          {{tag.name}}
+        </label>
+      </div>        
+        {% endfor %}
+    <button class="btn btn-sm btn-primary mt-2">Add Post</button>
 </form>
 
 {% endblock %}

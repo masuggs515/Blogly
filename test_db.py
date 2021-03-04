@@ -1,6 +1,6 @@
 from unittest import TestCase
 from app import app
-from models import db, User, Post
+from models import db, Users, Posts
 
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly_test'
@@ -17,8 +17,8 @@ class BloglyTestCase(TestCase):
     def setUp(self):
         """Delete queries and add sample user."""
 
-        Post.query.delete()
-        User.query.delete()
+        Posts.query.delete()
+        Users.query.delete()
 
         user = User(first_name="Test", last_name="Test", image_url="Test")
         db.session.add(user)

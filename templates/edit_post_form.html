@@ -2,7 +2,7 @@
 {% block title %}Edit {{post.title}} {% endblock %}
 {% block content %}
 <h2>Edit {{post.title}}</h2>
-<form action="/posts/{{post.id}}/edit" method="POST">
+<form action="/posts/{{post.id}}/edit" class="container" method="POST">
     <div class="mb-3">
         <label for="title" class="mb-1">Post Title</label>
         <input type="text" name="title" id="title" class="form-control" value="{{post.title}}">
@@ -11,8 +11,17 @@
         <label for="content" class="mb-1">Post Content</label>
         <textarea type="text" class="form-control" name="content" rows="2" cols="25" id="content">{{post.content}}</textarea>
     </div>
+    <h5>Add Tags:</h5>
+    {% for tag in tags %}
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="{{tag.id}}" id="{{tag.name}}" name="tags">
+        <label class="form-check-label" for="{{tag.name}}">
+          {{tag.name}}
+        </label>
+      </div>        
+        {% endfor %}
     <button class="btn btn-sm btn-primary">Save Edit</button>
-    <a href="/users/{{post.usr.id}}" class="btn btn-sm btn-outline-warning">Cancel Edit</a>
+    <a href="/users/{{post.user.id}}" class="btn btn-sm btn-outline-warning">Cancel Edit</a>
 </form>
 
 {% endblock %}
